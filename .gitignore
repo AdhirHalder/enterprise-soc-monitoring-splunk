@@ -1,1 +1,32 @@
+# Splunk local/runtime files
+*.log
+*.splunk*
+splunk_data/
+var/
+etc/apps/*/local/
+etc/apps/*/lookups/
 
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Environment / secrets
+.env
+.env.*
+*.key
+*.pem
+credentials.txt
+secrets.txt
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# IDE / editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
