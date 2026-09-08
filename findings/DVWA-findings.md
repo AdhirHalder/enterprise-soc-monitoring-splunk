@@ -121,11 +121,28 @@ The dashboard provides visibility into:
 
 The project also includes a Real-Time Unified SOC Console that correlates the three DVWA attack scenarios:
 
-```text
-Brute Force
+## 5. SOC Investigation Workflow
+
+The DVWA attack scenarios demonstrate an end-to-end SOC workflow:
+
+1. Generate controlled attack activity.
+2. Collect application and web-server telemetry.
+3. Ingest the telemetry into Splunk.
+4. Search and analyze security events using SPL.
+5. Detect suspicious activity.
+6. Visualize attack activity through dashboards.
+7. Trigger configured alerts.
+8. Investigate source IPs, payloads, endpoints, and timelines.
+9. Map applicable activity to MITRE ATT&CK.
+
+## Validation Note
+
+The project focuses on detection and monitoring of attack requests and payloads.
+
+Successful exploitation should not be claimed unless independently verified in the controlled test environment.
      ↓
 SQL Injection
      ↓
-XSS
+    XSS
      ↓
 Unified SOC Monitoring
