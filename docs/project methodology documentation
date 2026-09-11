@@ -1,0 +1,192 @@
+# Detection Workflow
+
+## Overview
+
+The project implements a SIEM-based detection workflow for identifying suspicious security activity across historical BOTS datasets and the live DVWA environment.
+
+The workflow combines log ingestion, SPL-based detection, dashboard visualization, alerting, investigation, and MITRE ATT&CK mapping.
+
+## Detection Lifecycle
+
+The overall detection lifecycle is:
+
+1. Generate or collect security events.
+2. Ingest events into Splunk.
+3. Identify relevant sourcetypes and fields.
+4. Develop SPL-based detection logic.
+5. Search and analyze suspicious activity.
+6. Visualize activity through dashboards.
+7. Configure real-time alerts for selected attack patterns.
+8. Investigate detected events.
+9. Correlate relevant indicators.
+10. Document findings.
+11. Map applicable activity to MITRE ATT&CK.
+
+## DVWA Detection Workflow
+
+DVWA is used as the controlled live attack environment.
+
+The monitored attack scenarios are:
+
+- Brute Force
+- SQL Injection
+- Cross-Site Scripting (XSS)
+
+The basic data flow is:
+
+DVWA → Apache/DVWA Logs → Splunk Universal Forwarder → Splunk Enterprise → SPL Detection → Dashboard/Alert
+
+## Brute Force Detection
+
+### Detection Objective
+
+Identify repeated failed authentication attempts originating from a single source IP.
+
+### Detection Logic
+
+The project documentation defines brute-force detection based on repeated failed login attempts within a short time window.
+
+The documented detection condition is:
+
+- More than 5 failed login attempts
+- From a single source IP
+- Within 1 minute
+
+### Alert
+
+Alert name:
+
+`Brute_Force_Attack_Detected`
+
+Severity:
+
+`High`
+
+The alert uses throttling to reduce repeated alert generation.
+
+MITRE ATT&CK mapping:
+
+`T1110.001 — Password Guessing`
+
+## SQL Injection Detection
+
+### Detection Objective
+
+Identify HTTP requests containing known SQL injection payload patterns.
+
+### Detection Patterns
+
+The documented patterns include:
+
+- `UNION SELECT`
+- `OR 1=1`
+- `--`
+
+The SQL injection monitoring uses the DVWA SQL injection log sourcetype:
+
+`sourcetype=dvwa:sqli`
+
+### Alert
+
+Alert name:
+
+`SQL_Injection_Attack_Detected`
+
+Severity:
+
+`High`
+
+MITRE ATT&CK mapping:
+
+`T1190 — Exploit Public-Facing Application`
+
+## Cross-Site Scripting Detection
+
+### Detection Objective
+
+Identify HTTP requests containing suspicious XSS-related payloads.
+
+### Detection Patterns
+
+The documented patterns include:
+
+- `<script>`
+- `onerror=`
+- `javascript:`
+
+The XSS monitoring uses:
+
+`sourcetype=dvwa:xss`
+
+### Alert
+
+Alert name:
+
+`DVWA - XSS Attack Detected`
+
+Severity:
+
+`Medium`
+
+The alert uses a 60-second suppression period per source IP.
+
+No specific MITRE ATT&CK technique was assigned to XSS in the project documentation.
+
+## Dashboard-Based Investigation
+
+Detected activity is visualized through dedicated DVWA dashboards:
+
+1. Real-Time DVWA Brute Force Attack Dashboard
+2. Real-Time DVWA SQL Injection Attack Dashboard
+3. Real-Time DVWA Cross-Site Scripting (XSS) Attack Dashboard
+4. Real-Time Unified SOC Console
+
+The unified console provides a consolidated view of the monitored DVWA attack activity.
+
+## Alert Investigation
+
+When suspicious activity is identified, the investigation process includes:
+
+1. Review the triggered event.
+2. Identify the source IP.
+3. Examine timestamps and request activity.
+4. Review relevant payload or authentication information.
+5. Correlate related events.
+6. Determine the attack type.
+7. Assess severity and potential impact.
+8. Document the finding.
+9. Map the activity to MITRE ATT&CK where applicable.
+
+## Alert Notification
+
+Email notification actions were configured for the documented DVWA alerts.
+
+However, successful external email delivery was not treated as verified. Notification delivery depends on the configured SMTP environment.
+
+## Detection Engineering Principles
+
+The project follows these detection engineering principles:
+
+- Use observable log data.
+- Develop detection logic according to the available fields and sourcetypes.
+- Prefer behavior-based indicators where applicable.
+- Use thresholds and time windows for repeated activity.
+- Apply throttling/suppression to reduce alert flooding.
+- Correlate related events during investigation.
+- Document detection findings and ATT&CK mappings.
+
+## Validation
+
+Detection logic is validated by generating controlled attack activity against DVWA and observing the resulting events in Splunk.
+
+Validation focuses on:
+
+- Event ingestion
+- Correct sourcetype assignment
+- Detection query results
+- Dashboard visibility
+- Alert triggering
+- Event correlation
+- Investigation output
+
+All testing is performed within the controlled lab environment.
