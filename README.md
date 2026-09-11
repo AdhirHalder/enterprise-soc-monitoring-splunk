@@ -100,6 +100,8 @@ The project contains 24 documented Splunk dashboards across BOTSv1, BOTSv2, BOTS
 23. [DVWA XSS Attack Dashboard](dashboards/DVWA/03-dvwa-xss.md)
 24. [Unified DVWA SOC Console](dashboards/DVWA/04-unified-soc-console.md)
 
+Dashboard screenshots are stored within their respective dashboard directories.
+
 ## Detection Engineering
 
 The project includes SPL-based detection logic for:
@@ -107,6 +109,8 @@ The project includes SPL-based detection logic for:
 - Brute Force
 - SQL Injection
 - Cross-Site Scripting (XSS)
+
+Detection documentation:
 
 - [Brute Force Detection](detections/brute-force.md)
 - [SQL Injection Detection](detections/sql-injection.md)
@@ -119,6 +123,8 @@ Real-time Splunk alerts were configured for:
 1. Brute Force Login Attack
 2. SQL Injection Attack
 3. Cross-Site Scripting Attack
+
+Alert documentation:
 
 - [Brute Force Alert](alerts/brute-force-alert.md)
 - [SQL Injection Alert](alerts/sql-injection-alert.md)
@@ -135,6 +141,8 @@ The project contains documented findings from:
 - BOTSv3
 - DVWA
 
+Findings include suspicious network activity, authentication anomalies, DNS activity, cloud reconnaissance, IAM activity, lateral movement indicators, endpoint activity, DLP events, and web application attack activity.
+
 - [BOTSv1 Findings](findings/BOTSv1-findings.md)
 - [BOTSv2 Findings](findings/BOTSv2-findings.md)
 - [BOTSv3 Findings](findings/BOTSv3-findings.md)
@@ -142,7 +150,7 @@ The project contains documented findings from:
 
 ## MITRE ATT&CK Mapping
 
-Detected activities are mapped to relevant MITRE ATT&CK tactics and techniques.
+Detected activities are mapped to relevant MITRE ATT&CK tactics and techniques to provide structured threat analysis and detection coverage.
 
 [MITRE ATT&CK Mapping](mitre/mitre-mapping.md)
 
@@ -188,19 +196,61 @@ Detected activities are mapped to relevant MITRE ATT&CK tactics and techniques.
 
 ## Repository Structure
 
+
 enterprise-soc-monitoring-splunk/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
 ├── architecture/
+│   ├── architecture.md
+│   └── SOC-architecture.png
 ├── dashboards/
 │   ├── BOTSv1/
 │   ├── BOTSv2/
 │   ├── BOTSv3/
 │   └── DVWA/
 ├── detections/
+│   ├── brute-force.md
+│   ├── sql-injection.md
+│   └── xss.md
 ├── alerts/
+│   ├── brute-force-alert.md
+│   ├── sql-injection-alert.md
+│   └── xss-alert.md
 ├── findings/
+│   ├── BOTSv1-findings.md
+│   ├── BOTSv2-findings.md
+│   ├── BOTSv3-findings.md
+│   └── DVWA-findings.md
 ├── mitre/
-├── screenshots/
+│   └── mitre-mapping.md
 └── docs/
+    ├── setup.md
+    ├── methodology.md
+    └── detection-workflow.md
+
+Project Status
+
+Core implementation and technical documentation completed.
+
+The repository contains:
+
+24 dashboard-specific SPL documentation files
+Dashboard screenshots
+Detection logic
+Alert documentation
+Threat hunting findings
+MITRE ATT&CK mapping
+SOC architecture documentation
+Setup documentation
+Project methodology
+Detection engineering workflow
+
+Final repository quality checks and presentation polish are being completed.
+
+Author
+
+Adhir Halder
+
+B.Tech Computer Science & Engineering
+Cybersecurity    
